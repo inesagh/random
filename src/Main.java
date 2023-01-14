@@ -1,9 +1,22 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        String result = theLongestDistinctSubstring("hganmkkssaksnuy");
-        System.out.println(result + " -> result");
+//        String result = theLongestDistinctSubstring("hganmkkssaksnuy");
+//        System.out.println(result + " -> result");
+
+//        String result = dateFormatting("-date=20220720");
+//        System.out.println(result + " result");
+//
+        List<Integer> list = new ArrayList<>();
+        //list.add(1);
+        //list.add(2);
+        list.add(0);
+        System.out.println(list.stream().noneMatch(each -> each == 0));
+
     }
 
     private static String theLongestDistinctSubstring(String word){
@@ -29,5 +42,22 @@ public class Main {
     }
     private static boolean containsChar(String[] wordAsArray, String letter){
         return Arrays.asList(wordAsArray).contains(letter);
+    }
+
+    private static String dateFormatting(String dateString){
+        DateFormat paramDf = new SimpleDateFormat("yyyyMMdd");
+        String dateParam = null;
+        if (dateString.startsWith("-date")) {
+            try {
+                dateParam = dateString.substring(dateString.indexOf("=") + 1);
+                dateParam = paramDf.format(dateParam);
+                dateParam = paramDf.format(paramDf.parse(dateParam));
+            } catch (IllegalArgumentException ex) {
+                System.out.println("wrong data format");
+            } catch (ParseException e) {
+                System.out.println("ParseException");
+            }
+        }
+        return dateParam;
     }
 }
